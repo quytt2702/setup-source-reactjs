@@ -1,0 +1,13 @@
+.login-form {
+  width: 400px;
+  max-width: 100%;
+  padding: 15px;
+  box-shadow: $color-shadow;
+  border-radius: $border-radius;
+}
+
+.form-title {
+  text-align: center;
+  font-size: $font-size-heading;
+  margin-bottom: 15px;
+}
