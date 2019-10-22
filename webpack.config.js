@@ -8,11 +8,6 @@ const TransferWebpackPlugin = require('transfer-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
 
 const config = Object.assign(require('./src/constants/config'), dotenv);
-const {
-  NODE_ENV,
-  PORT,
-  API_URL
-} = config;
 
 const sourcePath = path.join(__dirname, './');
 const staticsPath = path.join(__dirname, './static');
@@ -95,13 +90,13 @@ let _module = {
 
 module.exports = function (env) {
   const nodeEnv = env && env.prod ? 'production' : 'development';
-  const isProd = NODE_ENV === 'production';
+  const isProd = config.NODE_ENV === 'production';
 
-  const envars = {
-    NODE_ENV: JSON.stringify(NODE_ENV),
-    API_URL: JSON.stringify(API_URL),
-    PORT: JSON.stringify(PORT)
-  };
+  let envars = {}
+
+  Object.keys(envars).forEach(key => {
+    envars[key] = JSON.stringify(envars[key]);
+  });
 
   const plugins = [
     new webpack.EnvironmentPlugin(envars),
@@ -255,7 +250,7 @@ module.exports = function (env) {
       ...commonConfig.plugins,
       new HtmlWebpackPlugin({
         template: path.resolve('./src', 'index.production.html'),
-        favicon: path.join('./src/assets/images', 'favicon.ico')
+        favicon: path.join('./src/assets/images', 'favicon.ico'),
       }),
       new webpack.optimize.CommonsChunkPlugin({
         names: ['vendor'],
