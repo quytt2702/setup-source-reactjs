@@ -1,11 +1,13 @@
 import axios from 'axios';
-import cookie from 'react-cookie';
+import Cookies from 'universal-cookie';
+
+const cookies = new Cookies();
 
 export default function customFetch(url, options) {
   // return a promise of axios
-  let at = cookie.load('accessToken');
-  if (at) {
-    axios.defaults.headers.common['Authorization'] = `Bearer ${at}`;
+  let accessToken = cookies.get('accessToken');
+  if (accessToken) {
+    axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
   }
 
   return new Promise((resolve, reject) => {
