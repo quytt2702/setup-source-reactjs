@@ -94,7 +94,7 @@ module.exports = function (env) {
 
   let envars = {}
 
-  Object.keys(envars).forEach(key => {
+  Object.keys(config).forEach(key => {
     envars[key] = JSON.stringify(envars[key]);
   });
 
